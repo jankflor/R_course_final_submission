@@ -1,0 +1,150 @@
+---
+title: "Final project: Rolling Stones"
+author: "Flora Janku"
+output: "html_document"
+editor_options: 
+  chunk_output_type: console
+---
+##Research problem
+
+Listening to music is an important aspect of humans' lives. It is not only considered a favourable pastime activity, but also as a means to regulate our emotions and mood, and express thoughts and feelings that otherwise may be difficult to put into words.
+
+With the rise of the music industry in the first half of the 1900's, business has started to sail, and the need for an evaluation of the popularity of a musical piece has risen. The Rolling Stone, one of the most prestigious magazines, was created in 1967, with a focus on rock music. Later, it has widened its scope on all music genres. In 2003, the Rolling Stone released its first ever list of 'The 500 Greatest Albums of All Time', where musicians, critics and music industry figures voted on the 500 best albums ever released. The list has since been revised twice, once in 2012 and another time in 2020.
+
+Since the list sets out to rank the 500 greatest albums of all time, it becomes interesting exploring what aspects of an album contribute to it ranking in the top 500. According to a visual essay on the Rolling Stone's Billboard 500 (https://pudding.cool/2024/03/greatest-music/), in 2003 and 2012, almost no changes occurred in the top 10 albums, whereas in 2020, almost the entire top 10 were changed. Therefore, there must be aspects that have changed over time, that influenced whether an album received a ranking in 2020, compared to 2012 or 2003.
+
+My research question is: what aspects of an album contributed to a ranking on the 2020 Rolling Stones' 'The 500 Greatest Albums of All Time'? I hypothesize that such a factor was Spotify popularity, which was novel in 2020 compared to 2012. Other than Spotify popularity, I will check weeks spent on Billboard, years between debut and top 500 album, release year and album type as predictors of a top 500 ranking in 2020.
+
+
+```{r}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+theme_set(theme_light())
+
+```
+
+##Read data
+
+```{r}
+rolling_stone <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-05-07/rolling_stone.csv')
+```
+
+
+##EDA
+
+#Check structure of the dataset
+
+```{r}
+#Explore dataset
+head(rolling_stone)
+dim(rolling_stone)
+summary(rolling_stone)
+
+#There are no duplicates
+rolling_stone %>%
+  count(album_id, sort = TRUE)
+
+#Check variables
+glimpse(rolling_stone)
+
+#There are several missing values
+sapply(rolling_stone, function(x) sum(is.na(x)))
+```
+
+#Explore variables and relationships
+
+```{r}
+#A large number of albums are not grouped into a genre
+rolling_stone %>%
+  group_by(genre) %>%
+  count(sort = TRUE)
+
+#Studio albums occur most frequently
+rolling_stone %>%
+  group_by(type) %>%
+  count(sort = TRUE)
+
+#37 albums are not on Spotify
+rolling_stone %>%
+  filter(is.na(spotify_popularity)) %>%
+  count()
+
+#191 albums did not receive a ranking on the 2020 list
+rolling_stone %>%
+  filter(is.na(rank_2020)) %>%
+  count()
+
+#There seems to be a weak positive relationship between Spotify popularity and ranking in 2020
+rolling_stone %>%
+  filter(!(is.na(rank_2020)) & !(is.na(spotify_popularity))) %>%
+  ggplot(aes(rank_2020, spotify_popularity)) +
+  geom_point() +
+  labs(subtitle = "There seems to be a weak positive relationship between Spotify popularity and ranking in 2020", x = "Ranking", y = "Popularity", fill = "Type")
+
+#Studio albums seem to be the most popular on Spotify
+ggplot(rolling_stone, aes(spotify_popularity)) +
+  geom_histogram() +
+  facet_grid(.~type) +
+  labs(subtitle = "Studio albums are the most popular on Spotify", x = "Popularity", y = "Count")
+
+#Very few albums received ranking in 2020 that debuted more than 20 years before - most of these were compilation or greatest hits albums
+rolling_stone %>%
+  filter(!(is.na(rank_2020))) %>%
+  ggplot(aes(years_between, rank_2020, color = type)) +
+  geom_point() +
+  coord_flip() +
+  labs(subtitle = "Very few albums received ranking in 2020 that debuted more than 20 years before", x = "Years between debut and ranking", y = "Ranking")
+
+#More weeks on Billboard may indicate a higher ranking
+rolling_stone %>%
+  filter(!(is.na(rank_2020) & !(is.na(weeks_on_billboard)))) %>%
+  ggplot(aes(rank_2020, weeks_on_billboard)) +
+  geom_point() +
+  labs(subtitle = "More weeks on Billboard may indicate a higher ranking", x = "Ranking", y = "Weeks on Billboard")
+
+#Member count of artists and 2020 ranking do not seem to show a relationship
+rolling_stone %>%
+  filter(!(is.na(rank_2020))) %>%
+  ggplot(aes(rank_2020, artist_member_count)) +
+  geom_point() +
+  labs(subtitle = "Member count of artists and 2020 ranking do not seem to show a relationship", x = "Ranking", y = "No. of members")
+
+#Year of release and ranking in 2020 do not seem to show a relationship
+rolling_stone %>%
+  filter(!(is.na(rank_2020))) %>%
+  ggplot(aes(rank_2020, release_year)) +
+  geom_point() +
+  labs(subtitle = "Year of release and ranking in 2020 do not seem to show a relationship", x = "Ranking", y = "Year of release")
+
+```
+
+##Data cleaning
+
+```{r}
+#Filter out 'Various Artists' rows, since they miss almost all data
+rolling_stone %>%
+  filter(clean_name != "Various Artists") %>%
+  count()
+```
+
+##Analysis
+
+Linear regression: spotify popularity ~ rank_2020, differential, weeks_on_billboard, artist_member_count, years_between, genre
+
+```{r}
+
+
+```
+
+ANOVA: album type and spotify popularity
+
+```{r}
+popularity_df <- rolling_stone %>%
+  filter(!(is.na(spotify_popularity))) %>%
+  group_by(type) %>%
+  summarize(mean = mean(spotify_popularity), sd = sd(spotify_popularity))
+
+model2 <- aov(spotify_popularity ~ type, data = rolling_stone)
+summary(model2)
+```
+
