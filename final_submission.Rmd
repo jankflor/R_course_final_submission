@@ -13,14 +13,25 @@ With the rise of the music industry in the first half of the 1900's, business ha
 
 Since the list sets out to rank the 500 greatest albums of all time, it becomes interesting exploring what aspects of an album contribute to it ranking in the top 500. According to a visual essay on the Rolling Stone's Billboard 500 (https://pudding.cool/2024/03/greatest-music/), in 2003 and 2012, almost no changes occurred in the top 10 albums, whereas in 2020, almost the entire top 10 were changed. Therefore, there must be aspects that have changed over time, that influenced whether an album received a ranking in 2020, compared to 2012 or 2003.
 
-My research question is: what aspects of an album contributed to a ranking on the 2020 Rolling Stones' 'The 500 Greatest Albums of All Time'? I hypothesize that such a factor was Spotify popularity, which was novel in 2020 compared to 2012. Other than Spotify popularity, I will check weeks spent on Billboard, years between debut and top 500 album, release year and album type as predictors of a top 500 ranking in 2020.
+##Research question and hypotheses
+
+My research question is: what aspects of an album contributed to a ranking on the 2020 Rolling Stones' 'The 500 Greatest Albums of All Time'?
+
+I hypothesize that such a factor was Spotify popularity, which was novel in 2020 compared to 2012. Other than Spotify popularity, I will check weeks spent on Billboard, years between debut and top 500 album, release year and album type as predictors of a top 500 ranking in 2020.
+
+I will also investigate in a separate ANOVA test whether album type influenced ranking in 2020, since according to the visual essay, the popularity of Greatest hits and Compilation albums decreased over time.
+
+Finally, the relationship of ranking differential between 2020-2003 and album type will be investigated. I hypothesize that album type did not effect the ranking in 2020, but it influenced the ranking differential over time.
 
 
 ```{r}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
+library(performance)
+library(AICcmodavg)
+library(stats)
+library(car)
 theme_set(theme_light())
-
 ```
 
 ##Read data
@@ -28,7 +39,6 @@ theme_set(theme_light())
 ```{r}
 rolling_stone <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-05-07/rolling_stone.csv')
 ```
-
 
 ##EDA
 
@@ -63,6 +73,11 @@ rolling_stone %>%
 rolling_stone %>%
   group_by(type) %>%
   count(sort = TRUE)
+
+#Different types of albums received different rankings
+ggplot(rolling_stone, aes(x = type, y = rank_2020)) +
+  geom_boxplot(fill='steelblue') +
+  labs(subtitle = "Different types of albums received different rankings")
 
 #37 albums are not on Spotify
 rolling_stone %>%
@@ -116,35 +131,141 @@ rolling_stone %>%
   geom_point() +
   labs(subtitle = "Year of release and ranking in 2020 do not seem to show a relationship", x = "Ranking", y = "Year of release")
 
+#Differential between 2020 and 2003 ranking, by album type
+ggplot(rolling_stone, aes(x = type, y = differential)) +
+  geom_boxplot(fill='steelblue') +
+  labs(subtitle = "Differential between 2020 and 2003 ranking, by album type")
+
 ```
 
 ##Data cleaning
 
 ```{r}
 #Filter out 'Various Artists' rows, since they miss almost all data
-rolling_stone %>%
-  filter(clean_name != "Various Artists") %>%
-  count()
+rs_df <- rolling_stone %>%
+  filter(clean_name != "Various Artists")
+
+#Change NA's in spotify_popularity and weeks_on_billboard to be able to use it in models
+rs_df[is.na(rs_df$spotify_popularity), 'spotify_popularity'] <- 0
+table(is.na(rs_df$spotify_popularity))
+rs_df[is.na(rs_df$weeks_on_billboard), 'weeks_on_billboard'] <- 0
+table(is.na(rs_df$spotify_popularity))
+
+#Convert album type to factor to be able to use it in the regression model
+rs_df$type <- as.factor(rs_df$type)
 ```
 
 ##Analysis
 
-Linear regression: spotify popularity ~ rank_2020, differential, weeks_on_billboard, artist_member_count, years_between, genre
+To test the first hypotheses, linear regression models will be fitted on the dataset to predict Top 500 ranking in 2020. Variables are not in the same units of measurement, so they will be scaled in both models.
+
+Simple linear regression was used to test if Spotify popularity significantly predicted Top 500 ranking in 2020. The fitted regression model was:
+2020 ranking = 0.02142 + -0.18014*Spotify popularity.
+
+The regression model was statistically significant (R^2 = 0.02886, F = 15.77, p = 8.22e-05). Spotify popularity significantly predicted ranking in 2020 (ß = -0.18014, p = 8.22e-05): higher Spotify popularity predicted a higher ranking (a lower value in rank_2020).
 
 ```{r}
-
-
+#Build simpler model
+model_s <- lm(scale(rank_2020) ~ scale(spotify_popularity), data = rs_df)
+summary(model_s)
+confint(model_s)
 ```
 
-ANOVA: album type and spotify popularity
+Checking model assumptions shows that assumptions are met: since there are no duplicates in the dataset, residuals are independent. There is a linear relationship between the predictor and the outcome variable. The normality plot shows acceptable normality of residuals. Homoscedasticity assumption is also met.
 
 ```{r}
-popularity_df <- rolling_stone %>%
-  filter(!(is.na(spotify_popularity))) %>%
-  group_by(type) %>%
-  summarize(mean = mean(spotify_popularity), sd = sd(spotify_popularity))
+#Normality
+plot(model_s, 2)
 
-model2 <- aov(spotify_popularity ~ type, data = rolling_stone)
-summary(model2)
+#Linearity
+plot(rs_df$rank_2020, rs_df$spotify_popularity)
+
+#Homoscedasticity
+plot(model_s, 1)
 ```
 
+Multiple linear regression was used to test if other than Spotify popularity, weeks spent on Billboard, years between release and ranking on the Top 500, year of release and album type predicted Top 500 ranking in 2020. The fitted regression model was:
+2020 ranking = -0.24758 + -0.18720*Spotify popularity + -0.11767*weeks on Billboard + -0.02553*years between release and ranking + 0.25235*year of release + 0.03887*Greatest Hits album + 0.23658*Live album + -0.33831*Soundtrack album + 0.18123*Studio album.
+
+The regression model was statistically significant (R^2 = 0.06094, F = 4.415, p = 3.836e-05). Spotify popularity (ß = -0.18720, p = 0.000923), weeks spent on Billboard (ß = -0.11767, p = 0.010964) and year of release (ß = 0.25235, p = 1.24e-06) were significant predictors: higher Spotify popularity and more weeks spent on Billboard predicted a higher Top 500 ranking (lower value in rank_2020), whereas overall, a more recent release year predicted a lower Top 500 ranking (higher value in rank_2020). Years between release and ranking and album type did not significantly predict Top 500 ranking in 2020.
+
+```{r}
+#Build more complex model
+model_c <- lm(scale(rank_2020) ~ scale(spotify_popularity) + scale(weeks_on_billboard) + scale(years_between) + scale(release_year) + type, data = rs_df)
+summary(model_c)
+confint(model_c)
+```
+
+According to the comparison of the two models, the more complex model is a better fit (F = 4.9326, p = 2.106e-05). Akaike Information Criteria also shows that the more complex model is better (AIC = 1383.15). The more complex model explains 7.99% of the variance of the outcome variable, whereas the simpler model only explains 2.88%. Therefore, the inclusion of multiple predictors in the model was a reasonable choice.
+
+Checking model assumptions for the complex model also shows that assumptions are met. Normality of residuals is acceptable, homoscedasticity is also met, and there is no multicollinearity present.
+
+```{r}
+#Normality
+plot(model_c, 2)
+
+#Linearity
+plot(rs_df$rank_2020, rs_df$spotify_popularity)
+plot(rs_df$rank_2020, rs_df$weeks_on_billboard)
+plot(rs_df$rank_2020, rs_df$years_between)
+plot(rs_df$rank_2020, rs_df$release_year)
+
+#Homoscedasticity
+plot(model_c, 1)
+
+#Multicollinearity
+vif(model_c)
+```
+
+
+```{r}
+#Compare the two models
+anova(model_s, model_c)
+models <- list(model_s, model_c)
+mod.names <- c('spot', 'spot.billb.yrsbetween.releaseyr.type')
+aictab(cand.set = models, modnames = mod.names)
+```
+
+Testing the effect of album type on ranking in 2020, a one-way analysis of variance model was fitted on the dataset to explore whether there was any statistical difference in Top 500 ranking in 2020 between album types.
+
+The ANOVA model was not significant (p = 0.314). It can be concluded that album type did not influence Top 500 ranking in 2020.
+
+```{r}
+model_aov <- aov(rank_2020 ~ type, data = rs_df)
+summary(model_aov)
+```
+
+One-way ANOVA was used to test whether album type influenced the ranking differential between 2020 and 2003. The model was significant (F = 11.01, p = 1.18e-08), meaning there is significant difference between different album types in terms of differential.
+
+```{r}
+model_diff <- aov(differential ~ type, data = rs_df)
+summary(model_diff)
+```
+
+Model assumptions were met: observations are independent, normality of residuals is acceptable and equality of variances is also met according to Levene's test (F = 1.1507, p = 0.3316).
+
+```{r}
+plot(model_diff)
+
+leveneTest(differential ~ type, data = rs_df)
+```
+
+According to post-hoc comparisons, there was a statistically significant difference in differential between Studio and Compilation (p = 7.5e-07), and Studio and Greatest Hits (p = 0.0022) album types.
+
+```{r}
+pairwise.t.test(rs_df$differential, rs_df$type, p.adj='bonferroni')
+```
+
+##Discussion
+
+On a dataset of albums appearing in the Rolling Stones' 'Top 500 Greatest Albums of All Time' list, I examined what aspects contributed to an album appearing in the 2020 Top 500 ranking, and what difference album type made in rankings.
+
+Regression models were used to analyze the effect of predictor variables, such as Spotify popularity of an album, weeks spent on Billboard, years between debut and Top 500 ranking, album release year and album type, on outcome variable 2020 ranking. According to my analyses, higher Spotify popularity and more weeks spent on Billboard affected rankings positively, whereas a more recent release year predicted lower ranking on the Top 500.
+
+These results may indicate that in 2020, albums that were available and more popular on Spotify led to a higher ranking. This result seems evident, since Spotify took over physical CD copies and even radio play numbers, therefore an album not available on Spotify might be found less frequently by listeners, and therefore might be less popular among consumers. Also, weeks spent on Billboard indicate the number of radio plays of a certain album. Albums that could hold their place on the Billboard were played more frequently on radios, therefore they may have gained more popularity which also may have resulted in their rise of popularity on Spotify. However, this relationship would have to be investigated in another analysis. Finally, release year may have contributed to rankings in 2020 in a way, that albums released earlier have been on the radar of music critiques and experts for longer, therefore they have had more chance of rising to the top of The 500 list, as opposed to albums that have most recently been released. With the exception of a number of extraordinary successes, most 'young' albums only received a lower ranking, indicating that they have made less impact than 'older', 'classic' albums.
+
+The analysis of variance on the effect of album types on ranking in 2020 did not yield a significant result, which indicates that 2020 rankings did not differ between album types. In other words, album type was not an aspect that influenced ranks in 2020.
+
+However, album type did influence differential between 2020 and 2003 rankings. More specifically, Studio albums received significantly different rankings than Greatest Hits and Compilation albums. This might be because Greatest Hits and Compilation albums were more popular when physical copies of albums were sold, since they compiled an artists' most popular tracks. With the rise of streaming services, such as Spotify or Amazon Music, the need for these compilation albums may have dropped, since with a single monthly subscription price, all musical work of an artist has become available for listeners. Also the intelligent algorithm of these streaming services creates various playlists for anyone to listen to, that also include favourites, most popular tracks by artists, and new releases. Therefore, independent record labels and artists no longer need  to create these albums by themselves, they can rely on streaming services to provide these playlists. This phenomena may be the reason that Greatest Hits and Compilation albums received lower rankings over time, compared to Studio albums.
+
+All in all, it can be concluded that technological advancements influence the music industry in ways they could not have been imagined back in the early 2000's. Availability and variety of musical pieces that can be accessed by anyone in the world has risen greatly during the past two decades. Just take Hungary as an example: back in the times of socialism, all music from the 'West' was banned, and the Hungarian popular music industry was ruled by strict government rules. Almost 40 years later, even if we have not payed a single penny, we can access virtually any music via YouTube, and if we pay a subscrition fee to Spotify or YouTube Music or Amazon Music, we can listen to anything our heart desires. New genres have also risen because musical instruments and composing methods have also gone through tremendous advancement. Overall, some interesting differences can be found over time in the Rolling Stones' Top 500 lists as well, which makes it extremely difficult to compare albums from the 1950's to albums from 2019. This raises the question: what aspects make a musical piece popular ang 'great' nowadays? How have these aspects changed, what are still relevant? Do we even need these rankings, or shall we introduce different ways to quantify the success of an album? Future research is needed to answer these questions better.
