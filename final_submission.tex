@@ -113,7 +113,7 @@
 \begin{document}
 \maketitle
 
-\#\#Research problem
+\subsection{Research problem}\label{research-problem}
 
 Listening to music is an important aspect of humans' lives. It is not
 only considered a favourable pastime activity, but also as a means to
@@ -143,7 +143,8 @@ the entire top 10 was different than before. Therefore, there must be
 aspects that have changed over time, that influenced whether an album
 received a ranking in 2020, compared to 2012 or 2003.
 
-\#\#Research question and hypotheses
+\subsection{Research question and
+hypotheses}\label{research-question-and-hypotheses}
 
 My research question is: what aspects of an album contributed to a rank
 on the 2020 Rolling Stones' `The 500 Greatest Albums of All Time'?
@@ -221,7 +222,7 @@ time.
 \end{Highlighting}
 \end{Shaded}
 
-\#\#Read data
+\subsection{Read data}\label{read-data}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -240,9 +241,10 @@ time.
 ## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
 \end{verbatim}
 
-\#\#EDA
+\subsection{EDA}\label{eda}
 
-\#Check structure of the dataset
+\section{Check structure of the
+dataset}\label{check-structure-of-the-dataset}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -426,7 +428,8 @@ time.
 ##                        5                        5                        0
 \end{verbatim}
 
-\#Explore variables and relationships
+\section{Explore variables and
+relationships}\label{explore-variables-and-relationships}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -643,7 +646,7 @@ time.
 
 \includegraphics{final_submission_files/figure-latex/unnamed-chunk-4-8.pdf}
 
-\#\#Data cleaning
+\subsection{Data cleaning}\label{data-cleaning}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -683,9 +686,9 @@ time.
 \end{Highlighting}
 \end{Shaded}
 
-\#\#Analysis
+\subsection{Analysis}\label{analysis}
 
-\#Hypothesis 1
+\section{Hypothesis 1}\label{hypothesis-1}
 
 To test the first hypotheses, linear regression models will be fitted on
 the dataset to predict Top 500 ranking in 2020. Variables are not in the
@@ -969,7 +972,7 @@ inclusion of multiple predictors in the model was a reasonable choice.
 ## spot                                 -698.34
 \end{verbatim}
 
-\#Hypothesis 2
+\section{Hypothesis 2}\label{hypothesis-2}
 
 Testing the effect of album type on ranking in 2020, a one-way analysis
 of variance model was fitted on the dataset to explore whether there was
@@ -1023,7 +1026,7 @@ violated. Levene's test shows that homogeneity of variance is met (F =
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 \end{verbatim}
 
-\#Hypothesis 3
+\section{Hypothesis 3}\label{hypothesis-3}
 
 One-way ANOVA was used to test whether album type influenced the ranking
 differential between 2020 and 2003. The model was significant (F =
@@ -1098,7 +1101,7 @@ and Studio and Greatest Hits (p = 0.0022) album types.
 ## P value adjustment method: bonferroni
 \end{verbatim}
 
-\#\#Discussion
+\subsection{Discussion}\label{discussion}
 
 On a dataset of albums appearing in the Rolling Stones' `Top 500
 Greatest Albums of All Time' list, I examined what aspects contributed
