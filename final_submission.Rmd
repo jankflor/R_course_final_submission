@@ -1,8 +1,10 @@
 ---
-title: "Final project: Rolling Stones"
+title: 'Final project: Rolling Stones'
 author: "Flora Janku"
-output: "html_document"
-editor_options: 
+output:
+  pdf_document: default
+  html_document: default
+editor_options:
   chunk_output_type: console
 ---
 ##Research problem

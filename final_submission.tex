@@ -1,0 +1,1181 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Final project: Rolling Stones},
+  pdfauthor={Flora Janku},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Final project: Rolling Stones}
+\author{Flora Janku}
+\date{}
+
+\begin{document}
+\maketitle
+
+\#\#Research problem
+
+Listening to music is an important aspect of humans' lives. It is not
+only considered a favourable pastime activity, but also as a means to
+regulate our emotions and mood, and express thoughts and feelings that
+otherwise may be difficult to put into words
+(\url{https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2017.00501/full}).
+
+With the rise of the music industry in the first half of the 1900's,
+business has started to sail, and the need for an evaluation of the
+success of a musical piece has risen. The Rolling Stone, one of the most
+prestigious music magazines, was created in 1967, with a focus on rock
+music. Later, it has widened its scope on all music genres. In 2003, the
+Rolling Stone released its first ever list of `The 500 Greatest Albums
+of All Time', where musicians, critics and music industry figures voted
+on the 500 best albums ever released
+(\url{https://www.rollingstone.com/music/music-lists/best-songs-of-all-time-1224767/}).
+The list has since been revised twice, once in 2012 and another time in
+2020.
+
+Since the list sets out to rank the 500 greatest albums of all time, it
+becomes interesting to explore what aspects of an album contribute to a
+rank in the Top 500 Greatest Albums. According to a visual essay on the
+Rolling Stone's Billboard 500
+(\url{https://pudding.cool/2024/03/greatest-music/}), in 2003 and 2012,
+almost no changes occurred in the top 10 albums, whereas in 2020, almost
+the entire top 10 was different than before. Therefore, there must be
+aspects that have changed over time, that influenced whether an album
+received a ranking in 2020, compared to 2012 or 2003.
+
+\#\#Research question and hypotheses
+
+My research question is: what aspects of an album contributed to a rank
+on the 2020 Rolling Stones' `The 500 Greatest Albums of All Time'?
+
+I hypothesize that such a factor was Spotify popularity, which was more
+influential in 2020 compared to 2012 or 2003. Other than Spotify
+popularity, I will test weeks spent on Billboard, years between debut
+and top 500 ranking, release year and album type as predictors of a top
+500 ranking in 2020.
+
+I will also investigate in a separate ANOVA test whether album type
+influenced ranking in 2020, since according to the visual essay, the
+popularity of Greatest Hits and Compilation albums decreased over time.
+
+Finally, the relationship of ranking differential between 2020-2003 and
+album type will be investigated. I hypothesize that album type did not
+effect the ranking in 2020, but it influenced the ranking differential
+(the change in positions between the 2020 list and the 2003 list) over
+time.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knitr}\SpecialCharTok{::}\NormalTok{opts\_chunk}\SpecialCharTok{$}\FunctionTok{set}\NormalTok{(}\AttributeTok{echo =} \ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'ggplot2' was built under R version 4.4.0
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'forcats' was built under R version 4.4.0
+\end{verbatim}
+
+\begin{verbatim}
+## -- Attaching core tidyverse packages ------------------------ tidyverse 2.0.0 --
+## v dplyr     1.1.4     v readr     2.1.5
+## v forcats   1.0.0     v stringr   1.5.1
+## v ggplot2   3.5.1     v tibble    3.2.1
+## v lubridate 1.9.3     v tidyr     1.3.0
+## v purrr     1.0.2     
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+## i Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(performance)}
+\FunctionTok{library}\NormalTok{(AICcmodavg)}
+\FunctionTok{library}\NormalTok{(stats)}
+\FunctionTok{library}\NormalTok{(car)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: carData
+## 
+## Attaching package: 'car'
+## 
+## The following object is masked from 'package:dplyr':
+## 
+##     recode
+## 
+## The following object is masked from 'package:purrr':
+## 
+##     some
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{theme\_set}\NormalTok{(}\FunctionTok{theme\_light}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\#\#Read data
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rolling\_stone }\OtherTok{\textless{}{-}}\NormalTok{ readr}\SpecialCharTok{::}\FunctionTok{read\_csv}\NormalTok{(}\StringTok{\textquotesingle{}https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024{-}05{-}07/rolling\_stone.csv\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rows: 691 Columns: 21
+## -- Column specification --------------------------------------------------------
+## Delimiter: ","
+## chr  (8): sort_name, clean_name, album, genre, type, spotify_url, artist_gen...
+## dbl (13): rank_2003, rank_2012, rank_2020, differential, release_year, weeks...
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+\end{verbatim}
+
+\#\#EDA
+
+\#Check structure of the dataset
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Explore dataset}
+\FunctionTok{head}\NormalTok{(rolling\_stone)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 21
+##   sort_name      clean_name     album rank_2003 rank_2012 rank_2020 differential
+##   <chr>          <chr>          <chr>     <dbl>     <dbl>     <dbl>        <dbl>
+## 1 Sinatra, Frank Frank Sinatra  In t~       100       101       282         -182
+## 2 Diddley, Bo    Bo Diddley     Bo D~       214       216       455         -241
+## 3 Presley, Elvis Elvis Presley  Elvi~        55        56       332         -277
+## 4 Sinatra, Frank Frank Sinatra  Song~       306       308        NA         -195
+## 5 Little Richard Little Richard Here~        50        50       227         -177
+## 6 Beyonce        Beyonce        Lemo~        NA        NA        32          469
+## # i 14 more variables: release_year <dbl>, genre <chr>, type <chr>,
+## #   weeks_on_billboard <dbl>, peak_billboard_position <dbl>,
+## #   spotify_popularity <dbl>, spotify_url <chr>, artist_member_count <dbl>,
+## #   artist_gender <chr>, artist_birth_year_sum <dbl>,
+## #   debut_album_release_year <dbl>, ave_age_at_top_500 <dbl>,
+## #   years_between <dbl>, album_id <chr>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dim}\NormalTok{(rolling\_stone)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 691  21
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(rolling\_stone)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   sort_name          clean_name           album             rank_2003    
+##  Length:691         Length:691         Length:691         Min.   :  1.0  
+##  Class :character   Class :character   Class :character   1st Qu.:125.8  
+##  Mode  :character   Mode  :character   Mode  :character   Median :250.5  
+##                                                           Mean   :250.5  
+##                                                           3rd Qu.:375.2  
+##                                                           Max.   :500.0  
+##                                                           NA's   :191    
+##    rank_2012       rank_2020      differential      release_year 
+##  Min.   :  1.0   Min.   :  1.0   Min.   :-501.00   Min.   :1955  
+##  1st Qu.:125.8   1st Qu.:125.8   1st Qu.:-137.50   1st Qu.:1971  
+##  Median :250.5   Median :250.5   Median :  -8.00   Median :1979  
+##  Mean   :250.5   Mean   :250.5   Mean   : -12.32   Mean   :1983  
+##  3rd Qu.:375.2   3rd Qu.:375.2   3rd Qu.: 106.00   3rd Qu.:1994  
+##  Max.   :500.0   Max.   :500.0   Max.   : 484.00   Max.   :2019  
+##  NA's   :191     NA's   :191                                     
+##     genre               type           weeks_on_billboard
+##  Length:691         Length:691         Min.   :  1.00    
+##  Class :character   Class :character   1st Qu.: 20.75    
+##  Mode  :character   Mode  :character   Median : 44.50    
+##                                        Mean   : 64.27    
+##                                        3rd Qu.: 81.00    
+##                                        Max.   :741.00    
+##                                        NA's   :119       
+##  peak_billboard_position spotify_popularity spotify_url       
+##  Min.   :  1.00          Min.   :10.00      Length:691        
+##  1st Qu.:  2.00          1st Qu.:46.00      Class :character  
+##  Median : 17.00          Median :57.00      Mode  :character  
+##  Mean   : 61.19          Mean   :55.81                        
+##  3rd Qu.:111.50          3rd Qu.:68.00                        
+##  Max.   :201.00          Max.   :91.00                        
+##                          NA's   :37                           
+##  artist_member_count artist_gender      artist_birth_year_sum
+##  Min.   : 1.000      Length:691         Min.   : 1910        
+##  1st Qu.: 1.000      Class :character   1st Qu.: 1948        
+##  Median : 2.000      Mode  :character   Median : 3896        
+##  Mean   : 2.746                         Mean   : 5363        
+##  3rd Qu.: 4.000                         3rd Qu.: 7845        
+##  Max.   :12.000                         Max.   :23368        
+##  NA's   :5                              NA's   :5            
+##  debut_album_release_year ave_age_at_top_500 years_between   
+##  Min.   :1934             Min.   :17.00      Min.   : 0.000  
+##  1st Qu.:1966             1st Qu.:24.04      1st Qu.: 1.000  
+##  Median :1973             Median :27.00      Median : 3.000  
+##  Mean   :1977             Mean   :29.61      Mean   : 5.929  
+##  3rd Qu.:1989             3rd Qu.:31.00      3rd Qu.: 7.000  
+##  Max.   :2019             Max.   :88.00      Max.   :54.000  
+##  NA's   :5                NA's   :5          NA's   :5       
+##    album_id        
+##  Length:691        
+##  Class :character  
+##  Mode  :character  
+##                    
+##                    
+##                    
+## 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#There are no duplicates}
+\NormalTok{rolling\_stone }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{count}\NormalTok{(album\_id, }\AttributeTok{sort =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 691 x 2
+##    album_id                   n
+##    <chr>                  <int>
+##  1 01TG7VOg4F90jXv3a1yCgA     1
+##  2 01uTaEF0YlcBgNwaSS9iIl     1
+##  3 02XyFDfvHfIwtqOC3o0PcK     1
+##  4 03GKkfyog7hnllilFS3jIV     1
+##  5 03zfU3IwWmymKoaWnwFNaY     1
+##  6 04FfqGvZJ9oUBGRVrq2FE5     1
+##  7 04VRfesff9bgDA2Q8J2oDo     1
+##  8 05n0d2kfwGPhKpTonLHRpY     1
+##  9 097eYvf9NKjFnv4xA9s2oV     1
+## 10 09AwlP99cHfKVNKv4FC8VW     1
+## # i 681 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Check variables}
+\FunctionTok{glimpse}\NormalTok{(rolling\_stone)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rows: 691
+## Columns: 21
+## $ sort_name                <chr> "Sinatra, Frank", "Diddley, Bo", "Presley, El~
+## $ clean_name               <chr> "Frank Sinatra", "Bo Diddley", "Elvis Presley~
+## $ album                    <chr> "In the Wee Small Hours", "Bo Diddley / Go Bo~
+## $ rank_2003                <dbl> 100, 214, 55, 306, 50, NA, NA, 421, NA, 12, 1~
+## $ rank_2012                <dbl> 101, 216, 56, 308, 50, NA, 451, 420, NA, 12, ~
+## $ rank_2020                <dbl> 282, 455, 332, NA, 227, 32, 33, NA, 68, 31, 2~
+## $ differential             <dbl> -182, -241, -277, -195, -177, 469, 468, -80, ~
+## $ release_year             <dbl> 1955, 1955, 1956, 1956, 1957, 2016, 2006, 195~
+## $ genre                    <chr> "Big Band/Jazz", "Rock n' Roll/Rhythm & Blues~
+## $ type                     <chr> "Studio", "Studio", "Studio", "Studio", "Stud~
+## $ weeks_on_billboard       <dbl> 14, NA, 100, NA, 5, 87, 173, NA, 27, NA, NA, ~
+## $ peak_billboard_position  <dbl> 2, 201, 1, 2, 13, 1, 2, 201, 30, 201, 201, 1,~
+## $ spotify_popularity       <dbl> 48, 50, 58, 62, 64, 73, 67, 47, 75, 52, 36, 7~
+## $ spotify_url              <chr> "spotify:album:3GmwKB1tgPZgXeRJZSm9WX", "spot~
+## $ artist_member_count      <dbl> 1, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 1, 1, 1, ~
+## $ artist_gender            <chr> "Male", "Male", "Male", "Male", "Male", "Fema~
+## $ artist_birth_year_sum    <dbl> 1915, 1928, 1935, 1915, 1932, 1981, 1983, 775~
+## $ debut_album_release_year <dbl> 1946, 1955, 1956, 1946, 1957, 2003, 2003, 195~
+## $ ave_age_at_top_500       <dbl> 40, 27, 21, 41, 25, 35, 23, 19, 27, 33, 33, 3~
+## $ years_between            <dbl> 9, 0, 0, 10, 0, 13, 3, 0, 7, 8, 2, 10, 1, 0, ~
+## $ album_id                 <chr> "3GmwKB1tgPZgXeRJZSm9WX", "1cbtDEwxCjMhglb49O~
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#There are several missing values}
+\FunctionTok{sapply}\NormalTok{(rolling\_stone, }\ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(x)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                sort_name               clean_name                    album 
+##                        0                        0                        0 
+##                rank_2003                rank_2012                rank_2020 
+##                      191                      191                      191 
+##             differential             release_year                    genre 
+##                        0                        0                      164 
+##                     type       weeks_on_billboard  peak_billboard_position 
+##                        0                      119                        0 
+##       spotify_popularity              spotify_url      artist_member_count 
+##                       37                       36                        5 
+##            artist_gender    artist_birth_year_sum debut_album_release_year 
+##                        5                        5                        5 
+##       ave_age_at_top_500            years_between                 album_id 
+##                        5                        5                        0
+\end{verbatim}
+
+\#Explore variables and relationships
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#A large number of albums are not grouped into a genre}
+\NormalTok{rolling\_stone }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(genre) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{count}\NormalTok{(}\AttributeTok{sort =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 17 x 2
+## # Groups:   genre [17]
+##    genre                                   n
+##    <chr>                               <int>
+##  1 <NA>                                  164
+##  2 Punk/Post-Punk/New Wave/Power Pop      84
+##  3 Soul/Gospel/R&B                        75
+##  4 Blues/Blues Rock                       65
+##  5 Hip-Hop/Rap                            61
+##  6 Indie/Alternative Rock                 60
+##  7 Country/Folk/Country Rock/Folk Rock    49
+##  8 Singer-Songwriter/Heartland Rock       28
+##  9 Hard Rock/Metal                        27
+## 10 Funk/Disco                             22
+## 11 Big Band/Jazz                          14
+## 12 Electronic                             14
+## 13 Rock n' Roll/Rhythm & Blues            10
+## 14 Latin                                   8
+## 15 Reggae                                  7
+## 16 Afrobeat                                2
+## 17 Blues/Blues ROck                        1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Studio albums occur most frequently}
+\NormalTok{rolling\_stone }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(type) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{count}\NormalTok{(}\AttributeTok{sort =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 2
+## # Groups:   type [5]
+##   type              n
+##   <chr>         <int>
+## 1 Studio          608
+## 2 Compilation      38
+## 3 Greatest Hits    23
+## 4 Live             19
+## 5 Soundtrack        3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Different types of albums received different rankings}
+\FunctionTok{ggplot}\NormalTok{(rolling\_stone, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ type, }\AttributeTok{y =}\NormalTok{ rank\_2020)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{fill=}\StringTok{\textquotesingle{}steelblue\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{subtitle =} \StringTok{"Different types of albums received different rankings"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 191 rows containing non-finite outside the scale range
+## (`stat_boxplot()`).
+\end{verbatim}
+
+\includegraphics{final_submission_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#37 albums are not on Spotify}
+\NormalTok{rolling\_stone }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(spotify\_popularity)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{count}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 1
+##       n
+##   <int>
+## 1    37
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#191 albums did not receive a ranking on the 2020 list}
+\NormalTok{rolling\_stone }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(rank\_2020)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{count}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 1
+##       n
+##   <int>
+## 1   191
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#There seems to be a weak positive relationship between Spotify popularity and ranking in 2020}
+\NormalTok{rolling\_stone }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(rank\_2020)) }\SpecialCharTok{\&} \SpecialCharTok{!}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(spotify\_popularity))) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(rank\_2020, spotify\_popularity)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{subtitle =} \StringTok{"There seems to be a weak positive relationship between Spotify popularity and ranking in 2020"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Ranking"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Popularity"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"Type"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{final_submission_files/figure-latex/unnamed-chunk-4-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Studio albums seem to be the most popular on Spotify}
+\FunctionTok{ggplot}\NormalTok{(rolling\_stone, }\FunctionTok{aes}\NormalTok{(spotify\_popularity)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{facet\_grid}\NormalTok{(.}\SpecialCharTok{\textasciitilde{}}\NormalTok{type) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{subtitle =} \StringTok{"Studio albums are the most popular on Spotify"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Popularity"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Count"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Removed 37 rows containing non-finite outside the scale range
+## (`stat_bin()`).
+\end{verbatim}
+
+\includegraphics{final_submission_files/figure-latex/unnamed-chunk-4-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Very few albums received ranking in 2020 that debuted more than 20 years before {-} most of these were compilation or greatest hits albums}
+\NormalTok{rolling\_stone }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(rank\_2020))) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(years\_between, rank\_2020, }\AttributeTok{color =}\NormalTok{ type)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{subtitle =} \StringTok{"Very few albums received ranking in 2020 that debuted more than 20 years before"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Years between debut and ranking"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Ranking"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 2 rows containing missing values or values outside the scale range
+## (`geom_point()`).
+\end{verbatim}
+
+\includegraphics{final_submission_files/figure-latex/unnamed-chunk-4-4.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#More weeks on Billboard may indicate a higher ranking}
+\NormalTok{rolling\_stone }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(rank\_2020) }\SpecialCharTok{\&} \SpecialCharTok{!}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(weeks\_on\_billboard)))) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(rank\_2020, weeks\_on\_billboard)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{subtitle =} \StringTok{"More weeks on Billboard may indicate a higher ranking"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Ranking"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Weeks on Billboard"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 119 rows containing missing values or values outside the scale range
+## (`geom_point()`).
+\end{verbatim}
+
+\includegraphics{final_submission_files/figure-latex/unnamed-chunk-4-5.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Member count of artists and 2020 ranking do not seem to show a relationship}
+\NormalTok{rolling\_stone }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(rank\_2020))) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(rank\_2020, artist\_member\_count)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{subtitle =} \StringTok{"Member count of artists and 2020 ranking do not seem to show a relationship"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Ranking"}\NormalTok{, }\AttributeTok{y =} \StringTok{"No. of members"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 2 rows containing missing values or values outside the scale range
+## (`geom_point()`).
+\end{verbatim}
+
+\includegraphics{final_submission_files/figure-latex/unnamed-chunk-4-6.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Year of release and ranking in 2020 do not seem to show a relationship}
+\NormalTok{rolling\_stone }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(rank\_2020))) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(rank\_2020, release\_year)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{subtitle =} \StringTok{"Year of release and ranking in 2020 do not seem to show a relationship"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Ranking"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Year of release"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{final_submission_files/figure-latex/unnamed-chunk-4-7.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Differential between 2020 and 2003 ranking, by album type}
+\FunctionTok{ggplot}\NormalTok{(rolling\_stone, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ type, }\AttributeTok{y =}\NormalTok{ differential)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{fill=}\StringTok{\textquotesingle{}steelblue\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{subtitle =} \StringTok{"Differential between 2020 and 2003 ranking, by album type"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{final_submission_files/figure-latex/unnamed-chunk-4-8.pdf}
+
+\#\#Data cleaning
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Filter out \textquotesingle{}Various Artists\textquotesingle{} rows, since they miss almost all data points}
+\NormalTok{rs\_df }\OtherTok{\textless{}{-}}\NormalTok{ rolling\_stone }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(clean\_name }\SpecialCharTok{!=} \StringTok{"Various Artists"}\NormalTok{)}
+
+\CommentTok{\#Change missing values in spotify\_popularity and weeks\_on\_billboard to be able to use them in models}
+\NormalTok{rs\_df[}\FunctionTok{is.na}\NormalTok{(rs\_df}\SpecialCharTok{$}\NormalTok{spotify\_popularity), }\StringTok{\textquotesingle{}spotify\_popularity\textquotesingle{}}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{0}
+\FunctionTok{table}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(rs\_df}\SpecialCharTok{$}\NormalTok{spotify\_popularity))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## FALSE 
+##   686
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rs\_df[}\FunctionTok{is.na}\NormalTok{(rs\_df}\SpecialCharTok{$}\NormalTok{weeks\_on\_billboard), }\StringTok{\textquotesingle{}weeks\_on\_billboard\textquotesingle{}}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{0}
+\FunctionTok{table}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(rs\_df}\SpecialCharTok{$}\NormalTok{spotify\_popularity))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## FALSE 
+##   686
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Convert album type to factor to be able to use it in the regression model}
+\NormalTok{rs\_df}\SpecialCharTok{$}\NormalTok{type }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(rs\_df}\SpecialCharTok{$}\NormalTok{type)}
+\end{Highlighting}
+\end{Shaded}
+
+\#\#Analysis
+
+\#Hypothesis 1
+
+To test the first hypotheses, linear regression models will be fitted on
+the dataset to predict Top 500 ranking in 2020. Variables are not in the
+same units of measurement, so they will be scaled in both models.
+
+Simple linear regression was used to test if Spotify popularity
+significantly predicted Top 500 ranking in 2020. The fitted regression
+model was: 2020 ranking = 0.02142 + -0.18014*Spotify popularity.
+
+The regression model was statistically significant (R\^{}2 = 0.02886, F
+= 15.77, p = 8.22e-05). Spotify popularity significantly predicted
+ranking in 2020 (ß = -0.18014, p = 8.22e-05): higher Spotify popularity
+predicted a higher ranking (a lower value in rank\_2020).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Build simpler model}
+\NormalTok{model\_s }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\FunctionTok{scale}\NormalTok{(rank\_2020) }\SpecialCharTok{\textasciitilde{}} \FunctionTok{scale}\NormalTok{(spotify\_popularity), }\AttributeTok{data =}\NormalTok{ rs\_df)}
+\FunctionTok{summary}\NormalTok{(model\_s)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = scale(rank_2020) ~ scale(spotify_popularity), data = rs_df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.24098 -0.84547 -0.05498  0.85081  1.97584 
+## 
+## Coefficients:
+##                           Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)                0.02142    0.04449   0.481     0.63    
+## scale(spotify_popularity) -0.18014    0.04537  -3.971 8.22e-05 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.9855 on 496 degrees of freedom
+##   (188 observations deleted due to missingness)
+## Multiple R-squared:  0.03081,    Adjusted R-squared:  0.02886 
+## F-statistic: 15.77 on 1 and 496 DF,  p-value: 8.22e-05
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{confint}\NormalTok{(model\_s)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                                 2.5 %     97.5 %
+## (Intercept)               -0.06598748  0.1088291
+## scale(spotify_popularity) -0.26927696 -0.0910103
+\end{verbatim}
+
+Checking model assumptions shows that assumptions are met: since there
+are no duplicates in the dataset, residuals are independent. There is a
+linear relationship between the predictor and the outcome variable. The
+normality plot shows acceptable normality of residuals. Homoscedasticity
+assumption is also met.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Normality}
+\FunctionTok{plot}\NormalTok{(model\_s, }\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{final_submission_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Linearity}
+\FunctionTok{plot}\NormalTok{(rs\_df}\SpecialCharTok{$}\NormalTok{rank\_2020, rs\_df}\SpecialCharTok{$}\NormalTok{spotify\_popularity)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{final_submission_files/figure-latex/unnamed-chunk-7-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Homoscedasticity}
+\FunctionTok{plot}\NormalTok{(model\_s, }\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{final_submission_files/figure-latex/unnamed-chunk-7-3.pdf}
+
+Multiple linear regression was used to test if other than Spotify
+popularity, weeks spent on Billboard, years between release and ranking
+on the Top 500, year of release and album type predicted Top 500 ranking
+in 2020. The fitted regression model was: 2020 ranking = -0.24758 +
+-0.18720\emph{Spotify popularity + -0.11767}weeks on Billboard +
+-0.02553\emph{years between release and ranking + 0.25235}year of
+release + 0.03887\emph{Greatest Hits album + 0.23658}Live album +
+-0.33831\emph{Soundtrack album + 0.18123}Studio album.
+
+The regression model was statistically significant (R\^{}2 = 0.06094, F
+= 4.415, p = 3.836e-05). Spotify popularity (ß = -0.18720, p =
+0.000923), weeks spent on Billboard (ß = -0.11767, p = 0.010964) and
+year of release (ß = 0.25235, p = 1.24e-06) were significant predictors:
+higher Spotify popularity and more weeks spent on Billboard predicted a
+higher Top 500 ranking (lower value in rank\_2020), whereas overall, a
+more recent release year predicted a lower Top 500 ranking (higher value
+in rank\_2020). Years between release and ranking and album type did not
+significantly predict Top 500 ranking in 2020.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Build more complex model}
+\NormalTok{model\_c }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\FunctionTok{scale}\NormalTok{(rank\_2020) }\SpecialCharTok{\textasciitilde{}} \FunctionTok{scale}\NormalTok{(spotify\_popularity) }\SpecialCharTok{+} \FunctionTok{scale}\NormalTok{(weeks\_on\_billboard) }\SpecialCharTok{+} \FunctionTok{scale}\NormalTok{(years\_between) }\SpecialCharTok{+} \FunctionTok{scale}\NormalTok{(release\_year) }\SpecialCharTok{+}\NormalTok{ type, }\AttributeTok{data =}\NormalTok{ rs\_df)}
+\FunctionTok{summary}\NormalTok{(model\_c)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = scale(rank_2020) ~ scale(spotify_popularity) + scale(weeks_on_billboard) + 
+##     scale(years_between) + scale(release_year) + type, data = rs_df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.20062 -0.77876 -0.02912  0.79097  1.94581 
+## 
+## Coefficients:
+##                           Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)                0.23140    0.29851   0.775    0.439    
+## scale(spotify_popularity) -0.21329    0.05157  -4.136 4.16e-05 ***
+## scale(weeks_on_billboard) -0.14092    0.04257  -3.311    0.001 ***
+## scale(years_between)      -0.06252    0.06384  -0.979    0.328    
+## scale(release_year)        0.24032    0.04723   5.088 5.17e-07 ***
+## typeGreatest Hits         -0.38843    0.38440  -1.010    0.313    
+## typeLive                  -0.25158    0.40057  -0.628    0.530    
+## typeSoundtrack            -0.79821    0.62989  -1.267    0.206    
+## typeStudio                -0.22074    0.30843  -0.716    0.475    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.9592 on 489 degrees of freedom
+##   (188 observations deleted due to missingness)
+## Multiple R-squared:  0.09473,    Adjusted R-squared:  0.07992 
+## F-statistic: 6.396 on 8 and 489 DF,  p-value: 6.462e-08
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{confint}\NormalTok{(model\_c)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                                2.5 %      97.5 %
+## (Intercept)               -0.3551186  0.81791179
+## scale(spotify_popularity) -0.3146139 -0.11196183
+## scale(weeks_on_billboard) -0.2245612 -0.05728399
+## scale(years_between)      -0.1879676  0.06291965
+## scale(release_year)        0.1475160  0.33312268
+## typeGreatest Hits         -1.1437014  0.36684855
+## typeLive                  -1.0386325  0.53548180
+## typeSoundtrack            -2.0358476  0.43942103
+## typeStudio                -0.8267487  0.38527527
+\end{verbatim}
+
+Checking model assumptions for the complex model also shows that
+assumptions are met. Normality of residuals is acceptable,
+homoscedasticity is also met, and there is no multicollinearity present.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Normality}
+\FunctionTok{plot}\NormalTok{(model\_c, }\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{final_submission_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Linearity}
+\FunctionTok{plot}\NormalTok{(rs\_df}\SpecialCharTok{$}\NormalTok{rank\_2020, rs\_df}\SpecialCharTok{$}\NormalTok{spotify\_popularity)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{final_submission_files/figure-latex/unnamed-chunk-9-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(rs\_df}\SpecialCharTok{$}\NormalTok{rank\_2020, rs\_df}\SpecialCharTok{$}\NormalTok{weeks\_on\_billboard)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{final_submission_files/figure-latex/unnamed-chunk-9-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(rs\_df}\SpecialCharTok{$}\NormalTok{rank\_2020, rs\_df}\SpecialCharTok{$}\NormalTok{years\_between)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{final_submission_files/figure-latex/unnamed-chunk-9-4.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(rs\_df}\SpecialCharTok{$}\NormalTok{rank\_2020, rs\_df}\SpecialCharTok{$}\NormalTok{release\_year)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{final_submission_files/figure-latex/unnamed-chunk-9-5.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Homoscedasticity}
+\FunctionTok{plot}\NormalTok{(model\_c, }\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{final_submission_files/figure-latex/unnamed-chunk-9-6.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Multicollinearity}
+\FunctionTok{vif}\NormalTok{(model\_c)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                               GVIF Df GVIF^(1/(2*Df))
+## scale(spotify_popularity) 1.363923  1        1.167871
+## scale(weeks_on_billboard) 1.203739  1        1.097150
+## scale(years_between)      1.678533  1        1.295582
+## scale(release_year)       1.275039  1        1.129176
+## type                      1.673394  4        1.066473
+\end{verbatim}
+
+According to the comparison of the two models, the more complex model is
+a better fit (F = 4.9326, p = 2.106e-05). Akaike Information Criteria
+also shows that the more complex model is better (AIC = 1383.15). The
+more complex model explains 7.99\% of the variance of the outcome
+variable, whereas the simpler model only explains 2.88\%. Therefore, the
+inclusion of multiple predictors in the model was a reasonable choice.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Compare the two models}
+\FunctionTok{anova}\NormalTok{(model\_s, model\_c)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Variance Table
+## 
+## Model 1: scale(rank_2020) ~ scale(spotify_popularity)
+## Model 2: scale(rank_2020) ~ scale(spotify_popularity) + scale(weeks_on_billboard) + 
+##     scale(years_between) + scale(release_year) + type
+##   Res.Df    RSS Df Sum of Sq      F    Pr(>F)    
+## 1    496 481.69                                  
+## 2    489 449.92  7    31.769 4.9326 2.106e-05 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{models }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(model\_s, model\_c)}
+\NormalTok{mod.names }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}spot\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}spot.billb.yrsbetween.releaseyr.type\textquotesingle{}}\NormalTok{)}
+\FunctionTok{aictab}\NormalTok{(}\AttributeTok{cand.set =}\NormalTok{ models, }\AttributeTok{modnames =}\NormalTok{ mod.names)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Model selection based on AICc:
+## 
+##                                       K    AICc Delta_AICc AICcWt Cum.Wt
+## spot.billb.yrsbetween.releaseyr.type 10 1383.15       0.00      1      1
+## spot                                  3 1402.73      19.57      0      1
+##                                           LL
+## spot.billb.yrsbetween.releaseyr.type -681.35
+## spot                                 -698.34
+\end{verbatim}
+
+\#Hypothesis 2
+
+Testing the effect of album type on ranking in 2020, a one-way analysis
+of variance model was fitted on the dataset to explore whether there was
+any statistical difference in Top 500 ranking in 2020 between album
+types.
+
+The ANOVA model was not significant (p = 0.314). It can be concluded
+that album type did not influence Top 500 ranking in 2020.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model\_aov }\OtherTok{\textless{}{-}} \FunctionTok{aov}\NormalTok{(rank\_2020 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ type, }\AttributeTok{data =}\NormalTok{ rs\_df)}
+\FunctionTok{summary}\NormalTok{(model\_aov)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##              Df   Sum Sq Mean Sq F value Pr(>F)
+## type          4    98872   24718   1.191  0.314
+## Residuals   493 10232798   20756               
+## 188 observations deleted due to missingness
+\end{verbatim}
+
+The model did not meet assumptions: normality of residuals has been
+violated. Levene's test shows that homogeneity of variance is met (F =
+2.2382, p = 0.0639).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(model\_aov)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{final_submission_files/figure-latex/unnamed-chunk-12-1.pdf}
+\includegraphics{final_submission_files/figure-latex/unnamed-chunk-12-2.pdf}
+\includegraphics{final_submission_files/figure-latex/unnamed-chunk-12-3.pdf}
+\includegraphics{final_submission_files/figure-latex/unnamed-chunk-12-4.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{leveneTest}\NormalTok{(rank\_2020 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ type, }\AttributeTok{data =}\NormalTok{ rs\_df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Levene's Test for Homogeneity of Variance (center = median)
+##        Df F value Pr(>F)  
+## group   4  2.2382 0.0639 .
+##       493                 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\#Hypothesis 3
+
+One-way ANOVA was used to test whether album type influenced the ranking
+differential between 2020 and 2003. The model was significant (F =
+11.01, p = 1.18e-08), meaning there is significant difference between
+different album types in terms of differential.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model\_diff }\OtherTok{\textless{}{-}} \FunctionTok{aov}\NormalTok{(differential }\SpecialCharTok{\textasciitilde{}}\NormalTok{ type, }\AttributeTok{data =}\NormalTok{ rs\_df)}
+\FunctionTok{summary}\NormalTok{(model\_diff)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##              Df   Sum Sq Mean Sq F value   Pr(>F)    
+## type          4  1652599  413150   11.01 1.18e-08 ***
+## Residuals   681 25561493   37535                     
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+Model assumptions were met: observations are independent, normality of
+residuals is acceptable and equality of variances is also met according
+to Levene's test (F = 1.1507, p = 0.3316).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(model\_diff)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{final_submission_files/figure-latex/unnamed-chunk-14-1.pdf}
+\includegraphics{final_submission_files/figure-latex/unnamed-chunk-14-2.pdf}
+\includegraphics{final_submission_files/figure-latex/unnamed-chunk-14-3.pdf}
+\includegraphics{final_submission_files/figure-latex/unnamed-chunk-14-4.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{leveneTest}\NormalTok{(differential }\SpecialCharTok{\textasciitilde{}}\NormalTok{ type, }\AttributeTok{data =}\NormalTok{ rs\_df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Levene's Test for Homogeneity of Variance (center = median)
+##        Df F value Pr(>F)
+## group   4  1.1507 0.3316
+##       681
+\end{verbatim}
+
+According to post-hoc comparisons, there was a statistically significant
+difference in differential between Studio and Compilation (p = 7.5e-07),
+and Studio and Greatest Hits (p = 0.0022) album types.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{pairwise.t.test}\NormalTok{(rs\_df}\SpecialCharTok{$}\NormalTok{differential, rs\_df}\SpecialCharTok{$}\NormalTok{type, }\AttributeTok{p.adj=}\StringTok{\textquotesingle{}bonferroni\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Pairwise comparisons using t tests with pooled SD 
+## 
+## data:  rs_df$differential and rs_df$type 
+## 
+##               Compilation Greatest Hits Live   Soundtrack
+## Greatest Hits 1.0000      -             -      -         
+## Live          0.5835      1.0000        -      -         
+## Soundtrack    1.0000      1.0000        1.0000 -         
+## Studio        7.5e-07     0.0022        0.6798 1.0000    
+## 
+## P value adjustment method: bonferroni
+\end{verbatim}
+
+\#\#Discussion
+
+On a dataset of albums appearing in the Rolling Stones' `Top 500
+Greatest Albums of All Time' list, I examined what aspects contributed
+to an album appearing in the 2020 Top 500 ranking, and what difference
+album type made in rankings.
+
+Regression models were used to analyze the effect of predictor
+variables, such as Spotify popularity of an album, weeks spent on
+Billboard, years between debut and Top 500 ranking, album release year
+and album type, on outcome variable 2020 ranking. According to my
+analyses, higher Spotify popularity and more weeks spent on Billboard
+affected rankings positively, whereas a more recent release year
+predicted lower ranking on the Top 500.
+
+These results may indicate that in 2020, albums that were available and
+more popular on Spotify led to a higher ranking. This result seems
+evident, since Spotify took over physical CD copies and even radio play
+numbers, therefore an album not available on Spotify might be found less
+frequently by listeners, and therefore might be less popular among
+consumers. Also, weeks spent on Billboard indicate the number of radio
+plays of a certain album. Albums that could hold their place on the
+Billboard were played more frequently on radios, therefore they may have
+gained more popularity which also may have resulted in their rise of
+popularity on Spotify. However, this relationship would have to be
+investigated in another analysis. Finally, release year may have
+contributed to rankings in 2020 in a way, that albums released earlier
+have been on the radar of music critiques and experts for longer,
+therefore they have had more chance of rising to the top of The 500
+list, as opposed to albums that have most recently been released. With
+the exception of a number of extraordinary successes, most `young'
+albums only received a lower ranking, indicating that they have made
+less impact than `older', `classic' albums.
+
+The analysis of variance on the effect of album types on ranking in 2020
+did not yield a significant result, which indicates that 2020 rankings
+did not differ between album types. In other words, album type was not
+an aspect that influenced ranks in 2020.
+
+However, album type did influence differential between 2020 and 2003
+rankings. More specifically, Studio albums received significantly
+different rankings than Greatest Hits and Compilation albums. This might
+be because Greatest Hits and Compilation albums were more popular when
+physical copies of albums were sold, since they compiled an artists'
+most popular tracks. With the rise of streaming services, such as
+Spotify or Amazon Music, the need for these compilation albums may have
+dropped, since with a single monthly subscription price, all musical
+work of an artist has become available for listeners. Also the
+intelligent algorithm of these streaming services creates various
+playlists for anyone to listen to, that also include favourites, most
+popular tracks by artists, and new releases. Therefore, independent
+record labels and artists no longer need to create these albums by
+themselves, they can rely on streaming services to provide these
+playlists. This phenomena may be the reason that Greatest Hits and
+Compilation albums received lower rankings over time, compared to Studio
+albums.
+
+All in all, it can be concluded that technological advancements
+influence the music industry in ways they could not have been imagined
+back in the early 2000's. Availability and variety of musical pieces
+that can be accessed by anyone in the world has risen greatly during the
+past two decades. Just take Hungary as an example: back in the times of
+socialism, all music from the `West' was banned, and the Hungarian
+popular music industry was ruled by strict government rules
+(\url{https://zti.hu/mza/m0403.htm}). Almost 40 years later, even if we
+have not payed a single penny, we can access virtually any music via
+YouTube, and if we pay a subscription fee to Spotify, YouTube Music or
+Amazon Music, we can listen to anything our heart desires. New genres
+have also risen because musical instruments and composing methods have
+also gone through tremendous advancement.
+
+Overall, some interesting differences can be found over time in the
+Rolling Stones' Top 500 lists as well, which makes it extremely
+difficult to compare albums from the 1950's to albums from 2019. This
+raises the question: what aspects make a musical piece popular, in other
+words, `great' nowadays? How have these aspects changed, which ones are
+still relevant? Do we even need these rankings, or shall we introduce
+different ways to quantify the success of an album? Future research is
+needed to answer these questions better.
+
+\end{document}
