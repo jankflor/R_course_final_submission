@@ -7,7 +7,7 @@ output:
 editor_options:
   chunk_output_type: console
 ---
-##Research problem
+## Research problem
 
 Listening to music is an important aspect of humans' lives. It is not only considered a favourable pastime activity, but also as a means to regulate our emotions and mood, and express thoughts and feelings that otherwise may be difficult to put into words (https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2017.00501/full).
 
@@ -15,7 +15,7 @@ With the rise of the music industry in the first half of the 1900's, business ha
 
 Since the list sets out to rank the 500 greatest albums of all time, it becomes interesting to explore what aspects of an album contribute to a rank in the Top 500 Greatest Albums. According to a visual essay on the Rolling Stone's Billboard 500 (https://pudding.cool/2024/03/greatest-music/), in 2003 and 2012, almost no changes occurred in the top 10 albums, whereas in 2020, almost the entire top 10 was different than before. Therefore, there must be aspects that have changed over time, that influenced whether an album received a ranking in 2020, compared to 2012 or 2003.
 
-##Research question and hypotheses
+## Research question and hypotheses
 
 My research question is: what aspects of an album contributed to a rank on the 2020 Rolling Stones' 'The 500 Greatest Albums of All Time'?
 
@@ -24,7 +24,6 @@ I hypothesize that such a factor was Spotify popularity, which was more influent
 I will also investigate in a separate ANOVA test whether album type influenced ranking in 2020, since according to the visual essay, the popularity of Greatest Hits and Compilation albums decreased over time.
 
 Finally, the relationship of ranking differential between 2020-2003 and album type will be investigated. I hypothesize that album type did not effect the ranking in 2020, but it influenced the ranking differential (the change in positions between the 2020 list and the 2003 list) over time.
-
 
 ```{r}
 knitr::opts_chunk$set(echo = TRUE)
@@ -36,15 +35,15 @@ library(car)
 theme_set(theme_light())
 ```
 
-##Read data
+## Read data
 
 ```{r}
 rolling_stone <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-05-07/rolling_stone.csv')
 ```
 
-##EDA
+## EDA
 
-#Check structure of the dataset
+# Check structure of the dataset
 
 ```{r}
 #Explore dataset
@@ -63,7 +62,7 @@ glimpse(rolling_stone)
 sapply(rolling_stone, function(x) sum(is.na(x)))
 ```
 
-#Explore variables and relationships
+# Explore variables and relationships
 
 ```{r}
 #A large number of albums are not grouped into a genre
@@ -140,7 +139,7 @@ ggplot(rolling_stone, aes(x = type, y = differential)) +
 
 ```
 
-##Data cleaning
+## Data cleaning
 
 ```{r}
 #Filter out 'Various Artists' rows, since they miss almost all data points
@@ -157,9 +156,9 @@ table(is.na(rs_df$spotify_popularity))
 rs_df$type <- as.factor(rs_df$type)
 ```
 
-##Analysis
+## Analysis
 
-#Hypothesis 1
+# Hypothesis 1
 
 To test the first hypotheses, linear regression models will be fitted on the dataset to predict Top 500 ranking in 2020. Variables are not in the same units of measurement, so they will be scaled in both models.
 
@@ -229,7 +228,7 @@ mod.names <- c('spot', 'spot.billb.yrsbetween.releaseyr.type')
 aictab(cand.set = models, modnames = mod.names)
 ```
 
-#Hypothesis 2
+# Hypothesis 2
 
 Testing the effect of album type on ranking in 2020, a one-way analysis of variance model was fitted on the dataset to explore whether there was any statistical difference in Top 500 ranking in 2020 between album types.
 
@@ -248,7 +247,7 @@ plot(model_aov)
 leveneTest(rank_2020 ~ type, data = rs_df)
 ```
 
-#Hypothesis 3
+# Hypothesis 3
 
 One-way ANOVA was used to test whether album type influenced the ranking differential between 2020 and 2003. The model was significant (F = 11.01, p = 1.18e-08), meaning there is significant difference between different album types in terms of differential.
 
@@ -271,7 +270,7 @@ According to post-hoc comparisons, there was a statistically significant differe
 pairwise.t.test(rs_df$differential, rs_df$type, p.adj='bonferroni')
 ```
 
-##Discussion
+## Discussion
 
 On a dataset of albums appearing in the Rolling Stones' 'Top 500 Greatest Albums of All Time' list, I examined what aspects contributed to an album appearing in the 2020 Top 500 ranking, and what difference album type made in rankings.
 
