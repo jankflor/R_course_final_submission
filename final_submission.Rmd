@@ -7,21 +7,21 @@ editor_options:
 ---
 ##Research problem
 
-Listening to music is an important aspect of humans' lives. It is not only considered a favourable pastime activity, but also as a means to regulate our emotions and mood, and express thoughts and feelings that otherwise may be difficult to put into words.
+Listening to music is an important aspect of humans' lives. It is not only considered a favourable pastime activity, but also as a means to regulate our emotions and mood, and express thoughts and feelings that otherwise may be difficult to put into words (https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2017.00501/full).
 
-With the rise of the music industry in the first half of the 1900's, business has started to sail, and the need for an evaluation of the popularity of a musical piece has risen. The Rolling Stone, one of the most prestigious magazines, was created in 1967, with a focus on rock music. Later, it has widened its scope on all music genres. In 2003, the Rolling Stone released its first ever list of 'The 500 Greatest Albums of All Time', where musicians, critics and music industry figures voted on the 500 best albums ever released. The list has since been revised twice, once in 2012 and another time in 2020.
+With the rise of the music industry in the first half of the 1900's, business has started to sail, and the need for an evaluation of the success of a musical piece has risen. The Rolling Stone, one of the most prestigious music magazines, was created in 1967, with a focus on rock music. Later, it has widened its scope on all music genres. In 2003, the Rolling Stone released its first ever list of 'The 500 Greatest Albums of All Time', where musicians, critics and music industry figures voted on the 500 best albums ever released (https://www.rollingstone.com/music/music-lists/best-songs-of-all-time-1224767/). The list has since been revised twice, once in 2012 and another time in 2020.
 
-Since the list sets out to rank the 500 greatest albums of all time, it becomes interesting exploring what aspects of an album contribute to it ranking in the top 500. According to a visual essay on the Rolling Stone's Billboard 500 (https://pudding.cool/2024/03/greatest-music/), in 2003 and 2012, almost no changes occurred in the top 10 albums, whereas in 2020, almost the entire top 10 were changed. Therefore, there must be aspects that have changed over time, that influenced whether an album received a ranking in 2020, compared to 2012 or 2003.
+Since the list sets out to rank the 500 greatest albums of all time, it becomes interesting to explore what aspects of an album contribute to a rank in the Top 500 Greatest Albums. According to a visual essay on the Rolling Stone's Billboard 500 (https://pudding.cool/2024/03/greatest-music/), in 2003 and 2012, almost no changes occurred in the top 10 albums, whereas in 2020, almost the entire top 10 was different than before. Therefore, there must be aspects that have changed over time, that influenced whether an album received a ranking in 2020, compared to 2012 or 2003.
 
 ##Research question and hypotheses
 
-My research question is: what aspects of an album contributed to a ranking on the 2020 Rolling Stones' 'The 500 Greatest Albums of All Time'?
+My research question is: what aspects of an album contributed to a rank on the 2020 Rolling Stones' 'The 500 Greatest Albums of All Time'?
 
-I hypothesize that such a factor was Spotify popularity, which was novel in 2020 compared to 2012. Other than Spotify popularity, I will check weeks spent on Billboard, years between debut and top 500 album, release year and album type as predictors of a top 500 ranking in 2020.
+I hypothesize that such a factor was Spotify popularity, which was more influential in 2020 compared to 2012 or 2003. Other than Spotify popularity, I will test weeks spent on Billboard, years between debut and top 500 ranking, release year and album type as predictors of a top 500 ranking in 2020.
 
-I will also investigate in a separate ANOVA test whether album type influenced ranking in 2020, since according to the visual essay, the popularity of Greatest hits and Compilation albums decreased over time.
+I will also investigate in a separate ANOVA test whether album type influenced ranking in 2020, since according to the visual essay, the popularity of Greatest Hits and Compilation albums decreased over time.
 
-Finally, the relationship of ranking differential between 2020-2003 and album type will be investigated. I hypothesize that album type did not effect the ranking in 2020, but it influenced the ranking differential over time.
+Finally, the relationship of ranking differential between 2020-2003 and album type will be investigated. I hypothesize that album type did not effect the ranking in 2020, but it influenced the ranking differential (the change in positions between the 2020 list and the 2003 list) over time.
 
 
 ```{r}
@@ -141,11 +141,11 @@ ggplot(rolling_stone, aes(x = type, y = differential)) +
 ##Data cleaning
 
 ```{r}
-#Filter out 'Various Artists' rows, since they miss almost all data
+#Filter out 'Various Artists' rows, since they miss almost all data points
 rs_df <- rolling_stone %>%
   filter(clean_name != "Various Artists")
 
-#Change NA's in spotify_popularity and weeks_on_billboard to be able to use it in models
+#Change missing values in spotify_popularity and weeks_on_billboard to be able to use them in models
 rs_df[is.na(rs_df$spotify_popularity), 'spotify_popularity'] <- 0
 table(is.na(rs_df$spotify_popularity))
 rs_df[is.na(rs_df$weeks_on_billboard), 'weeks_on_billboard'] <- 0
@@ -156,6 +156,8 @@ rs_df$type <- as.factor(rs_df$type)
 ```
 
 ##Analysis
+
+#Hypothesis 1
 
 To test the first hypotheses, linear regression models will be fitted on the dataset to predict Top 500 ranking in 2020. Variables are not in the same units of measurement, so they will be scaled in both models.
 
@@ -196,8 +198,6 @@ summary(model_c)
 confint(model_c)
 ```
 
-According to the comparison of the two models, the more complex model is a better fit (F = 4.9326, p = 2.106e-05). Akaike Information Criteria also shows that the more complex model is better (AIC = 1383.15). The more complex model explains 7.99% of the variance of the outcome variable, whereas the simpler model only explains 2.88%. Therefore, the inclusion of multiple predictors in the model was a reasonable choice.
-
 Checking model assumptions for the complex model also shows that assumptions are met. Normality of residuals is acceptable, homoscedasticity is also met, and there is no multicollinearity present.
 
 ```{r}
@@ -217,6 +217,7 @@ plot(model_c, 1)
 vif(model_c)
 ```
 
+According to the comparison of the two models, the more complex model is a better fit (F = 4.9326, p = 2.106e-05). Akaike Information Criteria also shows that the more complex model is better (AIC = 1383.15). The more complex model explains 7.99% of the variance of the outcome variable, whereas the simpler model only explains 2.88%. Therefore, the inclusion of multiple predictors in the model was a reasonable choice.
 
 ```{r}
 #Compare the two models
@@ -226,6 +227,8 @@ mod.names <- c('spot', 'spot.billb.yrsbetween.releaseyr.type')
 aictab(cand.set = models, modnames = mod.names)
 ```
 
+#Hypothesis 2
+
 Testing the effect of album type on ranking in 2020, a one-way analysis of variance model was fitted on the dataset to explore whether there was any statistical difference in Top 500 ranking in 2020 between album types.
 
 The ANOVA model was not significant (p = 0.314). It can be concluded that album type did not influence Top 500 ranking in 2020.
@@ -234,6 +237,16 @@ The ANOVA model was not significant (p = 0.314). It can be concluded that album 
 model_aov <- aov(rank_2020 ~ type, data = rs_df)
 summary(model_aov)
 ```
+
+The model did not meet assumptions: normality of residuals has been violated. Levene's test shows that homogeneity of variance is met (F = 2.2382, p = 0.0639).
+
+```{r}
+plot(model_aov)
+
+leveneTest(rank_2020 ~ type, data = rs_df)
+```
+
+#Hypothesis 3
 
 One-way ANOVA was used to test whether album type influenced the ranking differential between 2020 and 2003. The model was significant (F = 11.01, p = 1.18e-08), meaning there is significant difference between different album types in terms of differential.
 
@@ -268,4 +281,6 @@ The analysis of variance on the effect of album types on ranking in 2020 did not
 
 However, album type did influence differential between 2020 and 2003 rankings. More specifically, Studio albums received significantly different rankings than Greatest Hits and Compilation albums. This might be because Greatest Hits and Compilation albums were more popular when physical copies of albums were sold, since they compiled an artists' most popular tracks. With the rise of streaming services, such as Spotify or Amazon Music, the need for these compilation albums may have dropped, since with a single monthly subscription price, all musical work of an artist has become available for listeners. Also the intelligent algorithm of these streaming services creates various playlists for anyone to listen to, that also include favourites, most popular tracks by artists, and new releases. Therefore, independent record labels and artists no longer need  to create these albums by themselves, they can rely on streaming services to provide these playlists. This phenomena may be the reason that Greatest Hits and Compilation albums received lower rankings over time, compared to Studio albums.
 
-All in all, it can be concluded that technological advancements influence the music industry in ways they could not have been imagined back in the early 2000's. Availability and variety of musical pieces that can be accessed by anyone in the world has risen greatly during the past two decades. Just take Hungary as an example: back in the times of socialism, all music from the 'West' was banned, and the Hungarian popular music industry was ruled by strict government rules. Almost 40 years later, even if we have not payed a single penny, we can access virtually any music via YouTube, and if we pay a subscrition fee to Spotify or YouTube Music or Amazon Music, we can listen to anything our heart desires. New genres have also risen because musical instruments and composing methods have also gone through tremendous advancement. Overall, some interesting differences can be found over time in the Rolling Stones' Top 500 lists as well, which makes it extremely difficult to compare albums from the 1950's to albums from 2019. This raises the question: what aspects make a musical piece popular ang 'great' nowadays? How have these aspects changed, what are still relevant? Do we even need these rankings, or shall we introduce different ways to quantify the success of an album? Future research is needed to answer these questions better.
+All in all, it can be concluded that technological advancements influence the music industry in ways they could not have been imagined back in the early 2000's. Availability and variety of musical pieces that can be accessed by anyone in the world has risen greatly during the past two decades. Just take Hungary as an example: back in the times of socialism, all music from the 'West' was banned, and the Hungarian popular music industry was ruled by strict government rules (https://zti.hu/mza/m0403.htm). Almost 40 years later, even if we have not payed a single penny, we can access virtually any music via YouTube, and if we pay a subscription fee to Spotify, YouTube Music or Amazon Music, we can listen to anything our heart desires. New genres have also risen because musical instruments and composing methods have also gone through tremendous advancement.
+
+Overall, some interesting differences can be found over time in the Rolling Stones' Top 500 lists as well, which makes it extremely difficult to compare albums from the 1950's to albums from 2019. This raises the question: what aspects make a musical piece popular, in other words, 'great' nowadays? How have these aspects changed, which ones are still relevant? Do we even need these rankings, or shall we introduce different ways to quantify the success of an album? Future research is needed to answer these questions better.
