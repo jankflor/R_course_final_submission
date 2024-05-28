@@ -2,8 +2,8 @@
 title: 'Final project: Rolling Stones'
 author: "Flora Janku"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 editor_options:
   chunk_output_type: console
 ---
@@ -165,7 +165,7 @@ To test the first hypotheses, linear regression models will be fitted on the dat
 Simple linear regression was used to test if Spotify popularity significantly predicted Top 500 ranking in 2020. The fitted regression model was:
 2020 ranking = 0.02142 + -0.18014*Spotify popularity.
 
-The regression model was statistically significant (R^2 = 0.02886, F = 15.77, p = 8.22e-05). Spotify popularity significantly predicted ranking in 2020 (ß = -0.18014, p = 8.22e-05): higher Spotify popularity predicted a higher ranking (a lower value in rank_2020).
+The regression model was statistically significant (R^2 = 0.02886, F = 15.77, p = 8.22e-05). Spotify popularity significantly predicted ranking in 2020 (B = -0.18014, p = 8.22e-05): higher Spotify popularity predicted a higher ranking (a lower value in ranking).
 
 ```{r}
 #Build simpler model
@@ -188,9 +188,9 @@ plot(model_s, 1)
 ```
 
 Multiple linear regression was used to test if other than Spotify popularity, weeks spent on Billboard, years between release and ranking on the Top 500, year of release and album type predicted Top 500 ranking in 2020. The fitted regression model was:
-2020 ranking = -0.24758 + -0.18720*Spotify popularity + -0.11767*weeks on Billboard + -0.02553*years between release and ranking + 0.25235*year of release + 0.03887*Greatest Hits album + 0.23658*Live album + -0.33831*Soundtrack album + 0.18123*Studio album.
+2020 ranking = -0.24758 + -0.18720 * Spotify popularity + -0.11767 * weeks on Billboard + -0.02553 * years between release and ranking + 0.25235 * year of release + 0.03887 * Greatest Hits album + 0.23658 * Live album + -0.33831 * Soundtrack album + 0.18123 * Studio album.
 
-The regression model was statistically significant (R^2 = 0.06094, F = 4.415, p = 3.836e-05). Spotify popularity (ß = -0.18720, p = 0.000923), weeks spent on Billboard (ß = -0.11767, p = 0.010964) and year of release (ß = 0.25235, p = 1.24e-06) were significant predictors: higher Spotify popularity and more weeks spent on Billboard predicted a higher Top 500 ranking (lower value in rank_2020), whereas overall, a more recent release year predicted a lower Top 500 ranking (higher value in rank_2020). Years between release and ranking and album type did not significantly predict Top 500 ranking in 2020.
+The regression model was statistically significant (R^2 = 0.06094, F = 4.415, p = 3.836e-05). Spotify popularity (B = -0.18720, p = 0.000923), weeks spent on Billboard (B = -0.11767, p = 0.010964) and year of release (B = 0.25235, p = 1.24e-06) were significant predictors: higher Spotify popularity and more weeks spent on Billboard predicted a higher Top 500 ranking (lower value in ranking), whereas overall, a more recent release year predicted a lower Top 500 ranking (higher value in ranking). Years between release and ranking and album type did not significantly predict Top 500 ranking in 2020.
 
 ```{r}
 #Build more complex model
